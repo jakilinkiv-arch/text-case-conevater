@@ -1,0 +1,81 @@
+import tkinter as tk
+from tkinter import ttk
+
+def to_upper():
+    text = input_text.get("1.0", tk.END)
+    output_text.delete("1.0", tk.END)
+    output_text.insert(tk.END, text.upper())
+
+def to_lower():
+    text = input_text.get("1.0", tk.END)
+    output_text.delete("1.0", tk.END)
+    output_text.insert(tk.END, text.lower())
+
+def to_title():
+    text = input_text.get("1.0", tk.END)
+    output_text.delete("1.0", tk.END)
+    output_text.insert(tk.END, text.title())
+
+# Main window
+root = tk.Tk()
+root.title("Text Case Converter")
+root.configure(bg='#e0f7fa')  # Background color
+
+# ---------- Styles (CSS-like) ----------
+style = ttk.Style()
+style.theme_use("default")
+
+style.configure("TFrame", background="#e0f7fa")
+style.configure("TLabel", background="#e0f7fa", foreground="#333", font=("Helvetica", 10, "bold"))
+style.configure("TButton",
+                background="#1976d2",
+                foreground="white",
+                font=("Helvetica", 10, "bold"),
+                padding=6)
+style.map("TButton",
+          background=[("active", "#1565c0")],
+          foreground=[("active", "white")])
+
+# ---------- FRAME STRUCTURE ----------
+# Main container frame
+main_frame = ttk.Frame(root, padding=20, style="TFrame")
+main_frame.pack(fill=tk.BOTH, expand=True)
+
+# Header Frame
+header_frame = ttk.Frame(main_frame, style="TFrame")
+header_frame.pack(fill=tk.X, pady=(0, 10))
+
+# Input Frame
+input_frame = ttk.Frame(main_frame, style="TFrame")
+input_frame.pack(fill=tk.X, pady=5)
+
+# Button Frame
+button_frame = ttk.Frame(main_frame, style="TFrame")
+button_frame.pack(fill=tk.X, pady=10)
+
+# Output Frame
+output_frame = ttk.Frame(main_frame, style="TFrame")
+output_frame.pack(fill=tk.X, pady=5)
+
+# ---------- WIDGETS ----------
+# Header Label
+header_label = ttk.Label(header_frame, text="Text Case Converter", font=("Helvetica", 16, "bold"), style="TLabel")
+header_label.pack()
+
+# Input Label & Text
+ttk.Label(input_frame, text="Input:", style="TLabel").pack(anchor="w")
+input_text = tk.Text(input_frame, width=60, height=5, bg="#cb6ea6", fg="#000000", font=("Helvetica", 10))
+input_text.pack(fill=tk.X)
+
+# Buttons
+ttk.Button(button_frame, text="UPPERCASE", command=to_upper, style="TButton").pack(side=tk.LEFT, padx=5)
+ttk.Button(button_frame, text="lowercase", command=to_lower, style="TButton").pack(side=tk.LEFT, padx=5)
+ttk.Button(button_frame, text="Title Case", command=to_title, style="TButton").pack(side=tk.LEFT, padx=5)
+
+# Output Label & Text
+ttk.Label(output_frame, text="Output:", style="TLabel").pack(anchor="w")
+output_text = tk.Text(output_frame, width=60, height=5, bg="#e0f0ff", fg="#000000", font=("Helvetica", 10))
+output_text.pack(fill=tk.X)
+
+# ---------- Run Application ----------
+root.mainloop()
